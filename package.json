@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup",
-    "lint:fix": "prettier --write .",
-    "lint": "prettier --check .",
+    "lint:fix": "prettier --write 'src/**/*.ts'",
+    "lint": "prettier --check 'src/**/*.ts'",
     "test:types": "tsc --noEmit --strict --skipLibCheck",
     "prepare": "is-ci || husky install",
     "release": "pnpm build && changeset version && changeset publish"
@@ -38,6 +38,6 @@
   },
   "packageManager": "pnpm@8.6.6",
   "lint-staged": {
-    "*.{ts}": "prettier --write ."
+    "*.{ts}": "prettier --write 'src/**/*.ts'"
   }
 }

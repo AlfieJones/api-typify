@@ -25,7 +25,7 @@ const routes = {
 
 const api = getAPI<typeof routes, RequestInit>(
   "https://api.example.com",
-  fetch
+  fetch,
 );
 
 // Get's the user object
