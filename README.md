@@ -23,7 +23,7 @@ const routes = {
   },
 };
 
-const api = getAPI<typeof routes, RequestInit>(
+const api = getAPI<typeof routes>(
   "https://api.example.com",
   fetch,
 );
