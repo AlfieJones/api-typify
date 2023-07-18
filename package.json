@@ -9,7 +9,8 @@
     "lint:fix": "prettier --write .",
     "lint": "prettier --check .",
     "test:types": "tsc --noEmit --strict --skipLibCheck",
-    "prepare": "is-ci || husky install"
+    "prepare": "is-ci || husky install",
+    "release": "pnpm build && changeset version && changeset publish"
   },
   "exports": {
     "import": "./dist/index.mjs",
