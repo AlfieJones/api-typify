@@ -1,5 +1,5 @@
 {
-  "name": "tsapi",
+  "name": "api-typify",
   "description": "Write APIs in TypeScript which compile to less than 400 bytes",
   "version": "0.1.0",
   "author": "Alfie Jones",
