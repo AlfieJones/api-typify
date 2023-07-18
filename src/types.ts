@@ -10,7 +10,7 @@ export interface BaseFetcherOptions {
   body?: unknown | null;
 }
 
-export type Fetcher<Options extends BaseFetcherOptions = {}> = (
+export type Fetcher<Options extends Object = {}> = (
   url: string,
   options?: Options,
 ) => Promise<unknown>;

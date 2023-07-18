@@ -8,26 +8,26 @@ import { Method, BaseFetcherOptions, Fetcher, Routes } from "./types";
 import { parseURL } from "./parser";
 
 // These are optional types if you want to extend the API
-type ExtraOptions = Record<string | number, unknown>;
 
-export function getAPI<T extends Partial<Routes>, O extends ExtraOptions = {}>(
+export function getAPI<T extends Partial<Routes>, Options extends Object = {}>(
   base: string,
-  fetcher: Fetcher<Omit<O, "body" | "params"> & BaseFetcherOptions>,
+  fetcher: Fetcher<Omit<Options, "body" | "params">>,
 ) {
   type Defs = T & Routes;
+  type ops = Omit<Options, "body" | "params">;
   return {
-    get: wrapper<Defs["GET"], O>()(fetcher, base, "GET"),
-    post: wrapper<Defs["POST"], O>()(fetcher, base, "POST"),
-    delete: wrapper<Defs["DELETE"], O>()(fetcher, base, "DELETE"),
-    put: wrapper<Defs["PUT"], O>()(fetcher, base, "PUT"),
-    patch: wrapper<Defs["PATCH"], O>()(fetcher, base, "PATCH"),
+    get: wrapper<Defs["GET"], ops>()(fetcher, base, "GET"),
+    post: wrapper<Defs["POST"], ops>()(fetcher, base, "POST"),
+    delete: wrapper<Defs["DELETE"], ops>()(fetcher, base, "DELETE"),
+    put: wrapper<Defs["PUT"], ops>()(fetcher, base, "PUT"),
+    patch: wrapper<Defs["PATCH"], ops>()(fetcher, base, "PATCH"),
   };
 }
 
 type tsAPIOptions<
   T extends Method,
   U extends keyof T,
-  FetcherOptions extends ExtraOptions,
+  FetcherOptions extends Object,
 > = BaseFetcherOptions &
   OptionalParams<T, U> &
   OptionalBody<T, U> &
@@ -37,14 +37,14 @@ type tsAPIOptions<
 type tsAPI<
   T extends Method,
   U extends keyof T,
-  O extends ExtraOptions,
+  O extends Object,
   R,
 > = HasRequiredKeys<tsAPIOptions<T, U, O>> extends true
   ? (url: U, options: tsAPIOptions<T, U, O>) => Promise<R>
   : (url: U, options?: tsAPIOptions<T, U, O>) => Promise<R>;
 
 const wrapper =
-  <T extends Method, O extends ExtraOptions>() =>
+  <T extends Method, O extends Object>() =>
   <U extends keyof T>(fetcher: Fetcher<O>, base: string, method: string) => {
     return ((url: U, options: tsAPIOptions<T, U, O>) => {
       const fullUrl = `${base}${parseURL(
