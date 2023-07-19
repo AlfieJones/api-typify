@@ -23,10 +23,7 @@ const routes = {
   },
 };
 
-const api = getAPI<typeof routes>(
-  "https://api.example.com",
-  fetch,
-);
+const api = getAPI<typeof routes>("https://api.example.com", fetch);
 
 // Get's the user object
 const user = await api.get("/users/{id}", {

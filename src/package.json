@@ -1,0 +1,30 @@
+{
+  "name": "api-typify",
+  "description": "Write APIs in TypeScript which compile to less than 400 bytes",
+  "version": "0.1.1",
+  "author": "Alfie Jones",
+  "license": "MIT",
+  "exports": {
+    "import": "./../dist/index.mjs",
+    "require": "./../dist/index.js",
+    "types": "./../dist/index.d.ts"
+  },
+  "main": "./../dist/index.js",
+  "module": "./../dist/index.mjs",
+  "keywords": [
+    "typescript",
+    "api",
+    "typed api"
+  ],
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "./../README.md",
+    "./../CHANGELOG.md",
+    "./../LICENSE",
+    "./../dist"
+  ],
+  "packageManager": "pnpm@8.6.6"
+}

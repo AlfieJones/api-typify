@@ -1,0 +1,12 @@
+---
+interface Props {
+  level: number;
+}
+const { level } = Astro.props as Props;
+
+const Tag = `h${Math.min(6, level + 1)}`;
+---
+
+<Tag>
+  <slot />
+</Tag>

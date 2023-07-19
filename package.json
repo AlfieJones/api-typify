@@ -1,43 +1,29 @@
 {
   "name": "api-typify",
   "description": "Write APIs in TypeScript which compile to less than 400 bytes",
-  "version": "0.1.1",
   "author": "Alfie Jones",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "build": "tsup",
-    "lint:fix": "prettier --write 'src/**/*.ts'",
-    "lint": "prettier --check 'src/**/*.ts'",
+    "lint:fix": "prettier --write ./*.{ts,astro}",
+    "lint": "prettier --check './*.{ts,astro}'",
     "test:types": "tsc --noEmit --strict --skipLibCheck",
     "prepare": "is-ci || husky install",
     "release": "pnpm build && changeset version && changeset publish"
   },
-  "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.js",
-    "types": "./dist/index.d.ts"
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "keywords": [
-    "typescript",
-    "api",
-    "typed api"
-  ],
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
     "lint-staged": "^13.2.3",
     "prettier": "3.0.0",
+    "prettier-plugin-astro": "^0.11.0",
     "tsup": "^7.1.0",
     "typescript": "^5.1.6"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "packageManager": "pnpm@8.6.6",
   "lint-staged": {
-    "*.{ts}": "prettier --write 'src/**/*.ts'"
+    "*.{ts,astro}": "prettier --write ./*.{ts,astro}"
   }
 }

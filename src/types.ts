@@ -1,16 +1,18 @@
 export interface EndpointTypes {
-  req: unknown;
-  res: unknown;
+  req?: unknown;
+  res?: unknown;
+  queries?: unknown;
 }
 
 export type Method<T extends Record<string, EndpointTypes> = {}> = T;
 
 export interface BaseFetcherOptions {
-  params?: unknown;
-  body?: unknown | null;
+  params?: undefined | {};
+  body?: undefined | {};
+  queries?: undefined | {};
 }
 
-export type Fetcher<Options extends Object = {}> = (
+export type Fetcher<Options extends Object> = (
   url: string,
   options?: Options,
 ) => Promise<unknown>;
