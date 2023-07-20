@@ -23,11 +23,8 @@ const wrapper =
   <T extends Method, O extends Object>() =>
   (fetcher: Fetcher<O & BaseFetcherOptions>, base: string, method: string) =>
   <U extends keyof T & string>(url: U, options?: tsAPIOptions<T, U, O>) => {
-    const fullURL = new URL(parseURL(url), base);
-    Object.keys(options?.queries || {}).forEach((key) => {
-      fullURL.searchParams.append(key, (options!.queries as any)[key]);
-    });
-    return fetcher(fullURL.toString(), {
+    const searchParams = new URLSearchParams(options?.queries || {});
+    return fetcher(`${base}${parseURL(url)}?${searchParams.toString()}`, {
       ...(options ? options : {}),
       method,
     } as O & BaseFetcherOptions);
