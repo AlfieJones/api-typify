@@ -10,6 +10,7 @@ export interface BaseFetcherOptions {
   params?: undefined | {};
   body?: undefined | {};
   queries?: undefined | {};
+  method?: string;
 }
 
 export type Fetcher<Options extends Object> = (

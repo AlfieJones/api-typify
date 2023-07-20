@@ -1,9 +1,8 @@
-import { Method } from "../types";
 import {
   HasRequiredKeys,
   Extract,
   PathParams,
-  ConditionalOptional,
+  ConditionallyOptional,
   tsAPIOptions,
 } from "../utils";
 import { Fail, Pass, check, checks } from "./test-utils";
@@ -33,86 +32,49 @@ checks([
 /**
  * Path Params
  */
-checks;
-type PathParamRoutes = Method<{
-  "/": {};
-  "/ping": {};
-  "/docs/help/faq": {};
-  "/{slug}": {};
-  "/{slug}/{id}/about": {};
-  "/{slug}/{id}/about/{page_id}": {};
-  "/tests/{?id}": {};
-  "/tests/{?id}/{page_id}": {};
-  "/tests/{id}/{?page}": {};
-}>;
-
 checks([
-  check<PathParams<PathParamRoutes, "/">, never, Pass>(),
-  check<PathParams<PathParamRoutes, "/">, Record<"slug", string>, Fail>(),
-  check<PathParams<PathParamRoutes, "/ping">, never, Pass>(),
-  check<PathParams<PathParamRoutes, "/ping">, Record<"slug", string>, Fail>(),
-  check<PathParams<PathParamRoutes, "/docs/help/faq">, never, Pass>(),
+  check<PathParams<"/">, never, Pass>(),
+  check<PathParams<"/">, Record<"slug", string>, Fail>(),
+  check<PathParams<"/ping">, never, Pass>(),
+  check<PathParams<"/ping">, Record<"slug", string>, Fail>(),
+  check<PathParams<"/docs/help/faq">, never, Pass>(),
+  check<PathParams<"/docs/help/faq">, Record<"slug", string>, Fail>(),
+  check<PathParams<"/{slug}">, Record<"slug", string>, Pass>(),
   check<
-    PathParams<PathParamRoutes, "/docs/help/faq">,
-    Record<"slug", string>,
-    Fail
-  >(),
-  check<PathParams<PathParamRoutes, "/{slug}">, Record<"slug", string>, Pass>(),
-  check<
-    PathParams<PathParamRoutes, "/{slug}">,
+    PathParams<"/{slug}">,
     Record<"slug", string> | Record<"id", string>,
     Fail
   >(),
   check<
-    PathParams<PathParamRoutes, "/{slug}/{id}/about">,
+    PathParams<"/{slug}/{id}/about">,
     Record<"slug", string> | Record<"id", string>,
     Pass
   >(),
+  check<PathParams<"/{slug}/{id}/about">, Record<"slug", string>, Fail>(),
   check<
-    PathParams<PathParamRoutes, "/{slug}/{id}/about">,
-    Record<"slug", string>,
-    Fail
-  >(),
-  check<
-    PathParams<PathParamRoutes, "/{slug}/{id}/about">,
+    PathParams<"/{slug}/{id}/about">,
     Record<"slug", string> | Record<"id", string> | Record<"page_id", string>,
     Fail
   >(),
   check<
-    PathParams<PathParamRoutes, "/{slug}/{id}/about/{page_id}">,
+    PathParams<"/{slug}/{id}/about/{page_id}">,
     Record<"slug", string> | Record<"id", string> | Record<"page_id", string>,
     Pass
   >(),
+  check<PathParams<"/tests/{?id}">, Partial<Record<"id", string>>, Pass>(),
+  check<PathParams<"/tests/{?id}">, Record<"id", string>, Fail>(),
   check<
-    PathParams<PathParamRoutes, "/tests/{?id}">,
-    Partial<Record<"id", string>>,
-    Pass
-  >(),
-  check<
-    PathParams<PathParamRoutes, "/tests/{?id}">,
-    Record<"id", string>,
-    Fail
-  >(),
-  check<
-    PathParams<PathParamRoutes, "/tests/{?id}/{page_id}">,
+    PathParams<"/tests/{?id}/{page_id}">,
     Partial<Record<"id", string>> | Record<"page_id", string>,
     Pass
   >(),
+  check<PathParams<"/tests/{?id}/{page_id}">, Record<"id", string>, Fail>(),
   check<
-    PathParams<PathParamRoutes, "/tests/{?id}/{page_id}">,
-    Record<"id", string>,
-    Fail
-  >(),
-  check<
-    PathParams<PathParamRoutes, "/tests/{id}/{?page}">,
+    PathParams<"/tests/{id}/{?page}">,
     Partial<Record<"page", string>> | Record<"id", string>,
     Pass
   >(),
-  check<
-    PathParams<PathParamRoutes, "/tests/{id}/{?page}">,
-    Record<"id", string>,
-    Fail
-  >(),
+  check<PathParams<"/tests/{id}/{?page}">, Record<"id", string>, Fail>(),
 ]);
 
 /**
@@ -166,46 +128,46 @@ checks([
 ]);
 
 /**
- * ConditionalOptional
+ * ConditionallyOptional
  */
 checks([
   check<
-    ConditionalOptional<"a", { b: string }>,
+    ConditionallyOptional<"a", { b: string }>,
     Record<"a", { b: string }>,
     Pass
   >(),
   check<
-    ConditionalOptional<"a", { b: string }>,
+    ConditionallyOptional<"a", { b: string }>,
     Partial<Record<"a", { b: string }>>,
     Fail
   >(),
   check<
-    ConditionalOptional<"a", { b?: string }>,
+    ConditionallyOptional<"a", { b?: string }>,
     Partial<Record<"a", { b?: string }>>,
     Pass
   >(),
   check<
-    ConditionalOptional<"a", { b?: string }>,
+    ConditionallyOptional<"a", { b?: string }>,
     Record<"a", { b?: string }>,
     Fail
   >(),
   check<
-    ConditionalOptional<"a", { b: string; c: string }>,
+    ConditionallyOptional<"a", { b: string; c: string }>,
     Record<"a", { b: string; c: string }>,
     Pass
   >(),
   check<
-    ConditionalOptional<"a", { b: string; c: string }>,
+    ConditionallyOptional<"a", { b: string; c: string }>,
     Partial<Record<"a", { b: string; c: string }>>,
     Fail
   >(),
   check<
-    ConditionalOptional<"a", { b?: string; c: string }>,
+    ConditionallyOptional<"a", { b?: string; c: string }>,
     Record<"a", { b?: string; c: string }>,
     Pass
   >(),
   check<
-    ConditionalOptional<"a", { b?: string; c: string }>,
+    ConditionallyOptional<"a", { b?: string; c: string }>,
     Partial<Record<"a", { b?: string; c: string }>>,
     Fail
   >(),

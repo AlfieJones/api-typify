@@ -1,5 +1,5 @@
-import { ReservedKeys, tsAPI, tsAPIOptions } from "./utils";
-import { Method, Fetcher, Routes } from "./types";
+import { ReservedKeys, tsAPIOptions } from "./utils";
+import { Method, Fetcher, Routes, BaseFetcherOptions } from "./types";
 import { parseURL } from "./parser";
 
 // These are optional types if you want to extend the API
@@ -21,19 +21,14 @@ export function getAPI<T extends Partial<Routes>, Options extends Object = {}>(
 
 const wrapper =
   <T extends Method, O extends Object>() =>
-  <U extends keyof T & string>(
-    fetcher: Fetcher<tsAPIOptions<T, U, O> | {}>,
-    base: string,
-    method: string,
-  ) => {
-    return ((url: U, options?: tsAPIOptions<T, U, O>) => {
-      const fullURL = new URL(parseURL(url), base);
-      Object.keys(options?.queries || {}).forEach((key) => {
-        fullURL.searchParams.append(key, (options!.queries as any)[key]);
-      });
-      return fetcher(fullURL.toString(), {
-        ...(options ? options : {}),
-        method,
-      });
-    }) as tsAPI<T, U, O>;
+  (fetcher: Fetcher<O & BaseFetcherOptions>, base: string, method: string) =>
+  <U extends keyof T & string>(url: U, options?: tsAPIOptions<T, U, O>) => {
+    const fullURL = new URL(parseURL(url), base);
+    Object.keys(options?.queries || {}).forEach((key) => {
+      fullURL.searchParams.append(key, (options!.queries as any)[key]);
+    });
+    return fetcher(fullURL.toString(), {
+      ...(options ? options : {}),
+      method,
+    } as O & BaseFetcherOptions);
   };

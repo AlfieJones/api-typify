@@ -14,13 +14,10 @@ export type HasRequiredKeys<T> = RequiredLiteralKeys<T> extends never
   ? false
   : true;
 
-export type PathParams<
-  T extends Record<string, EndpointTypes>,
-  U extends keyof T,
-> = U extends `${infer _V}{${infer W}}${infer X}`
+export type PathParams<U> = U extends `${infer _V}{${infer W}}${infer X}`
   ? W extends `?${infer Y}`
-    ? Partial<Record<Y, string>> | PathParams<T, X>
-    : Record<W, string> | PathParams<T, X>
+    ? Partial<Record<Y, string>> | PathParams<X>
+    : Record<W, string> | PathParams<X>
   : never;
 
 export type Extract<
@@ -36,7 +33,7 @@ export type UnionToIntersection<U> = (
   ? I
   : never;
 
-export type ConditionalOptional<K extends string, V> = K extends
+export type ConditionallyOptional<K extends string, V> = K extends
   | undefined
   | never
   ? Partial<Record<K, V>>
@@ -48,16 +45,7 @@ export type tsAPIOptions<
   T extends Record<string, EndpointTypes>,
   U extends keyof T,
   FetcherOptions extends Object,
-> = ConditionalOptional<"queries", Extract<T[U], "queries">> &
-  ConditionalOptional<"body", Extract<T[U], "req">> &
-  ConditionalOptional<"params", UnionToIntersection<PathParams<T, U>>> &
+> = ConditionallyOptional<"queries", Extract<T[U], "queries">> &
+  ConditionallyOptional<"body", Extract<T[U], "req">> &
+  ConditionallyOptional<"params", UnionToIntersection<PathParams<U>>> &
   FetcherOptions;
-
-// If either body or params isn't required, then the type of the options argument should be optional
-export type tsAPI<
-  T extends Record<string, EndpointTypes>,
-  U extends keyof T,
-  O extends Object,
-> = HasRequiredKeys<tsAPIOptions<T, U, O>> extends true
-  ? (url: U, options: tsAPIOptions<T, U, O>) => Promise<T[U]["res"]>
-  : (url: U, options?: tsAPIOptions<T, U, O>) => Promise<T[U]["res"]>;
