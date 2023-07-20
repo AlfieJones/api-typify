@@ -1,9 +1,3 @@
 {
-  "files.associations": {
-    "*.mdoc": "markdown"
-  },
-  "prettier.documentSelectors": ["**/*.astro"],
-  "[astro]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "cSpell.words": ["tsapi"]
 }
