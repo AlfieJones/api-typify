@@ -1,5 +1,11 @@
 # tsapi
 
+## 0.2.1
+
+### Patch Changes
+
+- a619099: Fixing typing
+
 ## 0.2.0
 
 ### Minor Changes
