@@ -1,5 +1,12 @@
 # tsapi
 
+## 0.2.2
+
+### Patch Changes
+
+- c1ff3ac: Updating
+- 910462d: Reducing bundle size
+
 ## 0.2.1
 
 ### Patch Changes
