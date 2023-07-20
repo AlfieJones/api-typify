@@ -6,7 +6,7 @@ import { parseURL } from "./parser";
 
 export function getAPI<T extends Partial<Routes>, Options extends Object = {}>(
   base: string,
-  fetcher: Fetcher<Omit<Options, ReservedKeys> | {}>,
+  fetcher: Fetcher<Omit<Options, ReservedKeys>>,
 ) {
   type Defs = T & Routes;
   type ops = Omit<Options, ReservedKeys>;
