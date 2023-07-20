@@ -1,5 +1,12 @@
 # tsapi
 
+## 0.2.3
+
+### Patch Changes
+
+- 1a0771b: Removing unused typing
+- 574875f: Adding method to options
+
 ## 0.2.2
 
 ### Patch Changes
