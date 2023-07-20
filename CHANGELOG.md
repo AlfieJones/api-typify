@@ -1,5 +1,11 @@
 # tsapi
 
+## 0.2.0
+
+### Minor Changes
+
+- a75f577: Parsing queries
+
 ## 0.1.1
 
 ### Patch Changes
