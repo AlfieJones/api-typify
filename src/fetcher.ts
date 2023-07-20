@@ -26,6 +26,7 @@ const wrapper =
     const searchParams = new URLSearchParams(options?.queries || {});
     return fetcher(`${base}${parseURL(url)}?${searchParams.toString()}`, {
       ...(options ? options : {}),
+      body: JSON.stringify(options?.body) || undefined,
       method,
     } as O & BaseFetcherOptions);
   };

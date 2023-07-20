@@ -48,4 +48,4 @@ export type tsAPIOptions<
 > = ConditionallyOptional<"queries", Extract<T[U], "queries">> &
   ConditionallyOptional<"body", Extract<T[U], "req">> &
   ConditionallyOptional<"params", UnionToIntersection<PathParams<U>>> &
-  FetcherOptions;
+  FetcherOptions & { method?: string };

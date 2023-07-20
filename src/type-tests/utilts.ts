@@ -195,7 +195,7 @@ checks([
           a: string;
         }
       > &
-      Partial<Record<"params", unknown>>,
+      Partial<Record<"params", unknown>> & { method?: string },
     Pass
   >(),
   check<
@@ -208,7 +208,7 @@ checks([
     >,
     Partial<Record<"queries", unknown>> &
       Partial<Record<"body", unknown>> &
-      Partial<Record<"params", unknown>>,
+      Partial<Record<"params", unknown>> & { method?: string },
     Pass
   >(),
   check<
@@ -228,7 +228,7 @@ checks([
           a: string;
         }
       > &
-      Partial<Record<"params", unknown>>,
+      Partial<Record<"params", unknown>> & { method?: string },
     Pass
   >(),
   check<
@@ -243,7 +243,7 @@ checks([
     >,
     Partial<Record<"queries", unknown>> &
       Partial<Record<"body", unknown>> &
-      Partial<Record<"params", unknown>>,
+      Partial<Record<"params", unknown>> & { method?: string },
     Pass
   >(),
   check<
@@ -258,7 +258,7 @@ checks([
     >,
     Record<"queries", { a: string }> &
       Partial<Record<"body", unknown>> &
-      Partial<Record<"params", unknown>>,
+      Partial<Record<"params", unknown>> & { method?: string },
     Pass
   >(),
   check<
@@ -279,7 +279,7 @@ checks([
           b: string;
         }
       > &
-      Partial<Record<"params", unknown>>,
+      Partial<Record<"params", unknown>> & { method?: string },
     Pass
   >(),
   check<
@@ -296,7 +296,7 @@ checks([
     >,
     Partial<Record<"queries", { a: string }>> &
       Partial<Record<"body", { b: string }>> &
-      Partial<Record<"params", unknown>>,
+      Partial<Record<"params", unknown>> & { method?: string },
     Pass
   >(),
   check<
@@ -313,7 +313,8 @@ checks([
     >,
     Partial<Record<"queries", { a?: string }>> &
       Partial<Record<"body", { b?: string }>> &
-      Partial<Record<"params", unknown>>,
+      Partial<Record<"params", unknown>> &
+      Partial<Record<"params", unknown>> & { method?: string },
     Pass
   >(),
 ]);
