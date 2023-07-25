@@ -1,5 +1,11 @@
 # tsapi
 
+## 0.3.1
+
+### Patch Changes
+
+- 2bfa462: Fixing recursive type error
+
 ## 0.3.0
 
 ### Minor Changes
