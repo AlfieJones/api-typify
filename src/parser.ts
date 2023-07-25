@@ -4,6 +4,7 @@ export function parseURL(url: string, params: Record<string, string> = {}) {
     const value = params[key] ?? "";
 
     const regex = new RegExp(`{\\??${key}}`, "g");
+
     parsedUrl = parsedUrl.replace(regex, value);
   }
   return parsedUrl;
