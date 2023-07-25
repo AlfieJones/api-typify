@@ -1,4 +1,4 @@
-import { ReservedKeys, tsAPIOptions, Extract } from "./utils";
+import { ReservedKeys, tsAPIOptions, Extract, HasRequiredKeys } from "./utils";
 import { Fetcher, Routes, BaseFetcherOptions, EndpointTypes } from "./types";
 import { parseURL } from "./parser";
 
@@ -46,8 +46,22 @@ export function getAPI<T extends Partial<Routes>, Options extends Object = {}>(
 
 const wrapper =
   <T extends Record<string, EndpointTypes>, O extends Object>() =>
-  (fetcher: Fetcher<O & BaseFetcherOptions>, base: string, method: string) =>
-  <U extends keyof T & string>(url: U, options?: tsAPIOptions<T, U, O>) => {
+  <U extends keyof T & string>(
+    fetcher: Fetcher<O & BaseFetcherOptions>,
+    base: string,
+    method: string,
+  ): HasRequiredKeys<tsAPIOptions<T, U, O>> extends true
+    ? (
+        url: U,
+        options: tsAPIOptions<T, U, O>,
+      ) => Promise<T[U] extends EndpointTypes ? Extract<T[U], "res"> : unknown>
+    : (
+        url: U,
+        options?: tsAPIOptions<T, U, O>,
+      ) => Promise<
+        T[U] extends EndpointTypes ? Extract<T[U], "res"> : unknown
+      > =>
+  (url: U, options: any) => {
     const searchParams = new URLSearchParams(
       (options?.queries || {}) as Record<string, string>,
     );
@@ -63,17 +77,3 @@ const wrapper =
       } as O & BaseFetcherOptions,
     ) as Promise<T[U] extends EndpointTypes ? Extract<T[U], "res"> : unknown>;
   };
-
-type routes = {
-  GET: {
-    "/users": {
-      req: undefined;
-      res: { name: string; age: number };
-      queries: { name: string };
-    };
-  };
-};
-
-const api = getAPI<routes>("https://example.com", fetch);
-
-api.get("/users");
