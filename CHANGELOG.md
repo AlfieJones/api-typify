@@ -1,5 +1,15 @@
 # tsapi
 
+## 0.3.0
+
+### Minor Changes
+
+- 564c09a: Fixing parser
+
+### Patch Changes
+
+- 564c09a: Updating return type
+
 ## 0.2.3
 
 ### Patch Changes
