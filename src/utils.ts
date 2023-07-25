@@ -42,17 +42,10 @@ export type ConditionallyOptional<K extends string, V> = K extends
   : Partial<Record<K, V>>;
 
 export type tsAPIOptions<
-  T extends Record<string, EndpointTypes> | undefined,
+  T extends Record<string, EndpointTypes>,
   U extends keyof T,
   FetcherOptions extends Object,
-> = T[U] extends Record<string, EndpointTypes>
-  ? ConditionallyOptional<"queries", Extract<T[U], "queries">> &
-      ConditionallyOptional<"body", Extract<T[U], "req">> &
-      ConditionallyOptional<"params", UnionToIntersection<PathParams<U>>> &
-      FetcherOptions & { method?: string }
-  : FetcherOptions & {
-      method?: string;
-      queries?: undefined;
-      params?: undefined;
-      body?: undefined;
-    };
+> = ConditionallyOptional<"queries", Extract<T[U], "queries">> &
+  ConditionallyOptional<"body", Extract<T[U], "req">> &
+  ConditionallyOptional<"params", UnionToIntersection<PathParams<U>>> &
+  FetcherOptions & { method?: string };
