@@ -1,5 +1,14 @@
 # tsapi
 
+## 0.3.2
+
+### Patch Changes
+
+- 0d7f6e2: Improving param types
+- e8b1d6c: Fixing types with multiple groups
+- 543d326: Removing required {} for empty options
+- 61950ac: Improving typing
+
 ## 0.3.1
 
 ### Patch Changes
