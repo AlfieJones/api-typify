@@ -19,8 +19,8 @@ export type Fetcher<Options extends Object> = (
 ) => Promise<unknown>;
 
 export interface Routes {
-  GET: Record<string, EndpointTypes>;
-  POST: Record<string, EndpointTypes>;
+  GET: Method;
+  POST: Method;
   DELETE: Record<string, EndpointTypes>;
   PUT: Record<string, EndpointTypes>;
   PATCH: Record<string, EndpointTypes>;

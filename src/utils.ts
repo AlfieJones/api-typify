@@ -20,10 +20,7 @@ export type PathParams<U> = U extends `${infer _V}{${infer W}}${infer X}`
     : Record<W, string> | PathParams<X>
   : never;
 
-export type Extract<
-  T extends EndpointTypes,
-  K extends keyof T,
-> = T extends undefined ? undefined : T[K];
+export type Extract<T extends EndpointTypes, K extends keyof T> = T[K];
 
 export type ReservedKeys = "params" | "body" | "queries";
 
