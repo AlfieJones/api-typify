@@ -19,6 +19,9 @@ const routes = {
     "/users/{id}": {
       req: undefined, // Requests body type
       res: User, // Response type
+      queries?: {
+        full?: boolean; // Include all user data
+      }
     },
   },
 };
@@ -33,5 +36,16 @@ const user = await api.get("/users/{id}", {
   params: {
     id: "123",
   },
+});
+```
+
+// Get's the full user object. Queries adds the request as a search parameter
+const user = await api.get("/users/{id}", {
+  params: {
+    id: "123",
+  },
+  queries: {
+    full: true,
+  }
 });
 ```
